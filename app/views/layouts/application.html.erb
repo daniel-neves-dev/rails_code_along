@@ -13,8 +13,15 @@
   </head>
 
   <body>
+  <%= render 'layouts/alerts' %>
+  <main class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render 'posts/navbar' %>
+        <%= yield %>
+      </div>
+    </div>
+  </main>
 
-
-  <%= yield %>
   </body>
 </html>
