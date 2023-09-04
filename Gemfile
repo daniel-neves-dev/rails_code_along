@@ -26,7 +26,6 @@ gem "bootsnap", require: false
 gem 'devise'
 
 group :development, :test do
-  gem "web-console"
   gem 'byebug'
   gem 'rspec-rails'
   gem 'capybara'
@@ -37,3 +36,6 @@ group :development, :test do
   gem 'spring'
 end
 
+group  :development do
+  gem "web-console"
+end
