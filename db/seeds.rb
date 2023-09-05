@@ -5,7 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+@user = User.create(
+  email: "test@test.com",
+  password: "123456",
+  password_confirmation: "123456",
+  first_name: "daniel",
+  last_name: "oliveira"
+)
 
-10.times do |posts|
-  Post.create!(date: Date.today, rationale: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.")
+10.times do |post|
+  Post.create!(date: Date.today, rationale: "#{post} - It is a long established fact that a reader.", user_id: @user.id)
 end
