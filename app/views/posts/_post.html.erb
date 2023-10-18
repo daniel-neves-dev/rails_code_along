@@ -6,6 +6,7 @@
     <th scope="col">User</th>
     <th scope="col">Rationale</th>
     <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
   </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -16,6 +17,10 @@
       <td><%= post.user.full_name %></td>
       <td><%= truncate(post.rationale) %></td>
       <td><%= link_to "Edit", edit_post_path(post) %></td>
+      <td><%= button_to post_path(post), method: :delete, form: { data: { turbo_confirm: "Delete?" },
+      },class: 'btn btn-sm btn-danger' do %>
+          Delete
+        <% end %></td>
     </tr>
   <% end %>
   </tbody>

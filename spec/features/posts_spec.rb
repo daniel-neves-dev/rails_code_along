@@ -71,6 +71,7 @@ describe 'Posts navigate' do
       @post = FactoryBot.create(:post)
     end
 
+
     it 'can be reached by clicking edit on the index page' do
       visit posts_path
 
@@ -90,4 +91,14 @@ describe 'Posts navigate' do
       expect(page).to have_content("Edited content")
     end
   end
+
+  describe 'delete' do
+    it 'destroy the post' do
+      @post = FactoryBot.create(:post)
+      visit posts_path
+      click_on('Delete')
+      expect(page).to have_content('Post was successfully deleted.')
+    end
+  end
 end
+

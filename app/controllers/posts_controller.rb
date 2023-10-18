@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
     @posts = Post.all.order(:user_id)
   end
@@ -37,8 +37,13 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
 
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully deleted." }
+    if @post.destroy
+      respond_to do |format|
+        format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to @post, alert: 'Post can not be deleted.'
     end
   end
 
