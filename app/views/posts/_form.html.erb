@@ -1,12 +1,15 @@
-<%= form_with model: @post do |form| %>
+<%= form_for @post, class: "form-horizontal" do |f| %>
 
-  <div>
-    <%= form.date_field :date %> <br/>
-    <%= form.text_area :rationale %>
+  <div class="form-group">
+    <%= f.label :date, class: "col-sm-2 control-label" %>
+    <%= f.date_field :date, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit 'Save' %>
+  <div class="form-group">
+    <%= f.label :rationale, class: "col-sm-2 control-label" %>
+    <%= f.text_area :rationale, class: "form-control" %>
   </div>
+
+  <%= f.submit 'Save', class: 'btn btn-primary  mt-2' %>
 
 <% end %>
