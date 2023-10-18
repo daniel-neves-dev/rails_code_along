@@ -5,6 +5,7 @@
     <th scope="col">Date</th>
     <th scope="col">User</th>
     <th scope="col">Rationale</th>
+    <th scope="col">Edit</th>
   </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -14,6 +15,7 @@
       <td><%= post.date %></td>
       <td><%= post.user.full_name %></td>
       <td><%= truncate(post.rationale) %></td>
+      <td><%= link_to "Edit", edit_post_path(post) %></td>
     </tr>
   <% end %>
   </tbody>

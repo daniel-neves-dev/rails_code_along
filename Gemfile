@@ -34,6 +34,7 @@ group :development, :test do
   gem "webdrivers"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'spring'
+  gem "factory_bot_rails"
 end
 
 group  :development do
