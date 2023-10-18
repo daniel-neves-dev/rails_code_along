@@ -3,24 +3,23 @@ require "administrate/base_dashboard"
 class UserDashboard < Administrate::BaseDashboard
 
   ATTRIBUTE_TYPES = {
-    posts: Field::HasMany,
-    id: Field::Number,
-    email: Field::String,
-    password: Field::String,
-    first_name: Field::String,
-    last_name: Field::String,
-    remember_created_at: Field::DateTime,
-    reset_password_sent_at: Field::DateTime,
-    reset_password_token: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    type: Field::String,
+    posts: Field::HasMany.with_options(searchable: false ),
+    id: Field::Number.with_options(searchable: false ),
+    email: Field::String.with_options(searchable: true),
+    password: Field::String.with_options(searchable: false ),
+    first_name: Field::String.with_options(searchable: false ),
+    last_name: Field::String.with_options(searchable: false ),
+    remember_created_at: Field::DateTime.with_options(searchable: false ),
+    reset_password_sent_at: Field::DateTime.with_options(searchable: false ),
+    reset_password_token: Field::String.with_options(searchable: false ),
+    created_at: Field::DateTime.with_options(searchable: false ),
+    updated_at: Field::DateTime.with_options(searchable: false ),
+    type: Field::String.with_options(searchable: false ),
   }.freeze
 
 
   COLLECTION_ATTRIBUTES = %i[
     posts
-    id
     email
     first_name
   ].freeze
@@ -28,7 +27,6 @@ class UserDashboard < Administrate::BaseDashboard
 
   SHOW_PAGE_ATTRIBUTES = %i[
     posts
-    id
     email
     first_name
     last_name
