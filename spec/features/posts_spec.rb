@@ -71,14 +71,14 @@ describe 'Posts navigate' do
       expect(page.status_code).to eq(200)
     end
 
-    # it 'can be edited' do
-    #   visit edit_post_path(@post)
-    #
-    #   find('input[name="post[date]"]', wait: 10).set(Date.today)
-    #   fill_in 'post[rationale]', with: "Edited content"
-    #   click_on "Save"
-    #
-    #   expect(page).to have_content("Edited content")
-    # end
+    it 'can be edited' do
+      visit edit_post_path(@post)
+
+      find('input[name="post[date]"]', wait: 10).set(Date.today)
+      fill_in 'post[rationale]', with: "Edited content"
+      click_on "Save"
+
+      expect(page).to have_content("Edited content")
+    end
   end
 end
