@@ -61,7 +61,7 @@ describe 'Posts navigate' do
     it 'has a link from the homepage' do
       visit root_path
 
-      click_on("new")
+      click_on("New Entry")
       expect(page.status_code).to eq(200)
     end
   end
@@ -92,13 +92,18 @@ describe 'Posts navigate' do
     end
   end
 
-  describe 'delete' do
-    it 'destroy the post' do
+  describe 'delete', type: :feature, js: true do
+    it 'destroys the post and shows confirmation' do
       @post = FactoryBot.create(:post)
       visit posts_path
-      click_on('Delete')
+
+      page.accept_confirm do
+        click_button('Delete')
+      end
+
       expect(page).to have_content('Post was successfully deleted.')
     end
   end
+
 end
 

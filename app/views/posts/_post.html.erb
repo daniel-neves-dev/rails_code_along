@@ -17,10 +17,7 @@
       <td><%= post.user.full_name %></td>
       <td><%= truncate(post.rationale) %></td>
       <td><%= link_to "Edit", edit_post_path(post) %></td>
-      <td><%= button_to post_path(post), method: :delete, form: { data: { turbo_confirm: "Delete?" },
-      },class: 'btn btn-sm btn-danger' do %>
-          Delete
-        <% end %></td>
+      <td><%= button_to "Delete", post_path(post), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </tbody>

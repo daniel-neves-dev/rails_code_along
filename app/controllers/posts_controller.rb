@@ -39,7 +39,8 @@ class PostsController < ApplicationController
 
     if @post.destroy
       respond_to do |format|
-        format.html { redirect_to posts_url, notice: 'Post was successfully deleted.' }
+        format.html { redirect_to posts_url, status: :unprocessable_entity,
+                                  notice: 'Post was successfully deleted.' }
         format.json { head :no_content }
       end
     else
