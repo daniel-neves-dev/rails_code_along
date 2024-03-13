@@ -42,5 +42,6 @@ group  :development do
 end
 
 gem "cssbundling-rails", "~> 1.2"
-gem "administrate"
+gem 'administrate', '~> 0.20.1'
+gem 'bourbon', '~> 7.3'
 gem "bootstrap"

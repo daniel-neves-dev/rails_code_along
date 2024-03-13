@@ -16,3 +16,11 @@
 10.times do |post|
   Post.create!(date: Date.today, rationale: "#{post} - It is a long established fact that a reader.", user_id: @user.id)
 end
+
+@admin = AdminUser.create(
+  email: "admin@admin.com",
+  password: "123456",
+  password_confirmation: "123456",
+  first_name: "lucas",
+  last_name: "silva"
+)
