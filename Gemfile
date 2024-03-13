@@ -42,6 +42,5 @@ group  :development do
 end
 
 gem "cssbundling-rails", "~> 1.2"
-gem 'gritter'
 gem "administrate"
 gem "bootstrap"

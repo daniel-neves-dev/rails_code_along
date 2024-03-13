@@ -127,7 +127,6 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    gritter (1.2.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -317,7 +316,6 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
-  gritter
   importmap-rails
   jbuilder
   pg (~> 1.1)
