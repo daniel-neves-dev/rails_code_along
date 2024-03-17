@@ -1,0 +1,12 @@
+<%= form_with model: @post do |form| %>
+
+  <div>
+    <%= form.date_field :date %> <br/>
+    <%= form.text_area :rationale %>
+  </div>
+
+  <div>
+    <%= form.submit 'Save' %>
+  </div>
+
+<% end %>
