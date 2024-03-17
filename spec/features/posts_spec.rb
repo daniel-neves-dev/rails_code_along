@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Posts navigate' do
+describe 'Posts navigate', true do
 
   before do
     @user = FactoryBot.create(:user)
@@ -16,11 +16,11 @@ describe 'Posts navigate' do
       expect(page.status_code).to eq(200)
     end
 
-    it 'displays the "Posts" title' do
+    it 'displays the "Posts" title', type: :feature, js: true do
       expect(page).to have_content('Posts')
     end
 
-    it 'displays multiple posts' do
+    it 'displays multiple posts', type: :feature, js: true do
       post1 = FactoryBot.build_stubbed(:post)
       post2 = FactoryBot.build_stubbed(:second_post)
       visit posts_path
@@ -37,7 +37,7 @@ describe 'Posts navigate' do
         expect(page.status_code).to eq(200)
       end
 
-      it 'creates a post from the new form' do
+      it 'creates a post from the new form', type: :feature, js: true do
         fill_in 'post[date]', with: Date.today
         fill_in 'post[rationale]', with: "Some rationale"
 
@@ -81,7 +81,7 @@ describe 'Posts navigate' do
       expect(page.status_code).to eq(200)
     end
 
-    it 'can be edited' do
+    it 'can be edited', :feature, js: true do
       visit edit_post_path(@post)
 
       find('input[name="post[date]"]', wait: 10).set(Date.today)
