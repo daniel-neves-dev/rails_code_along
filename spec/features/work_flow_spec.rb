@@ -12,7 +12,7 @@ describe 'navigate workflow', type: :feature, js: true do
       @post = FactoryBot.create(:post)
     end
 
-    it 'edit status', type: :feature, js: true do
+    it 'edit status by admin', type: :feature, js: true do
       visit edit_post_path(@post)
 
       choose('post_status_approved')
