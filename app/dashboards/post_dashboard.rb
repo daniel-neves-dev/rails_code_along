@@ -9,16 +9,19 @@ class PostDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo.with_options(searchable: false),
     created_at: Field::DateTime.with_options(searchable: true, searchable_fields: ['created_at'] ),
     updated_at: Field::DateTime.with_options(searchable: false ),
+    status: Field::Select.with_options(searchable: true ),
   }.freeze
 
   COLLECTION_ATTRIBUTES = %i[
     user
+    status
     date
     rationale
   ].freeze
 
   SHOW_PAGE_ATTRIBUTES = %i[
     user
+    status
     date
     rationale
     created_at
@@ -30,6 +33,7 @@ class PostDashboard < Administrate::BaseDashboard
     date
     rationale
     user
+    status
   ].freeze
 
   COLLECTION_FILTERS = {}.freeze
