@@ -23,4 +23,5 @@ describe 'admin dashboard' do
 
     expect(current_path).to eq(admin_root_path)
   end
+
 end

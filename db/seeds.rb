@@ -21,6 +21,6 @@ end
   email: "admin@admin.com",
   password: "123456",
   password_confirmation: "123456",
-  first_name: "lucas",
-  last_name: "silva"
+  first_name: "Admin",
+  last_name: "User"
 )

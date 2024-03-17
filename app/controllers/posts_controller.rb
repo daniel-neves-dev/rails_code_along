@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Author was successfully created." }
+        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

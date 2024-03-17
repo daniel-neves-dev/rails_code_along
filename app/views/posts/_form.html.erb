@@ -2,7 +2,6 @@
 
   <% if @post.errors.any? %>
     <% @post.errors.full_messages.each do |error| %>
-      <%= js add_gritter(error, title: "Overtime App Notification", sticky: false) %>
     <% end %>
   <% end %>
 
@@ -14,6 +13,21 @@
   <div class="form-group">
     <%= f.label :rationale, class: "col-sm-2 control-label" %>
     <%= f.text_area :rationale, class: "form-control" %>
+  </div>
+
+  <div>
+    <div class="form-check">
+      <%= f.radio_button :status, 'submitted', class:"form-check-input", type:"radio", id:"post_status_submitted"%>
+      <%= f.label :status, 'Submitted', class:"form-check-label", for:"post_status_submitted"%>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :status, 'approved', class:"form-check-input", type:"radio", id:"post_status_approved"%>
+      <%= f.label :status, 'Approved', class:"form-check-label", for:"post_status_approved" %>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :status, 'rejected', class:"form-check-input", type:"radio", id:"post_status_approved"%>
+      <%= f.label :status, 'Rejected', class:"form-check-label", for:"post_status_approved"%>
+    </div>
   </div>
 
   <%= f.submit 'Save', class: 'btn btn-primary btn-block mt-2' %>
