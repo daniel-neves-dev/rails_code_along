@@ -24,3 +24,11 @@ end
   first_name: "Admin",
   last_name: "User"
 )
+
+@user2 = User.create(
+  email: "test2@test.com",
+  password: "123456",
+  password_confirmation: "123456",
+  first_name: "maria",
+  last_name: "bela"
+)
