@@ -29,7 +29,8 @@ describe 'navigate workflow', type: :feature, js: true do
 
       visit edit_post_path(@post)
 
-      expect(page).to_not have_content('Approved')
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('You are not authorized')
     end
   end
 end

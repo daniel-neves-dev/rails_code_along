@@ -68,7 +68,7 @@ describe 'Posts navigate', true do
 
   describe 'edit' do
     before do
-      @post = FactoryBot.create(:post)
+      @post = FactoryBot.create(:post, user: @user)
     end
 
 
