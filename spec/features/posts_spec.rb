@@ -90,6 +90,15 @@ describe 'Posts navigate', true do
 
       expect(page).to have_content("Edited content")
     end
+
+    it 'cannot be edited by non_authorized user' do
+      logout(:user)
+      non_authorized_user = FactoryBot.create(:non_authorized_user)
+      login_as(non_authorized_user, :scope => :user)
+
+      visit edit_post_path(@post)
+      expect(current_path).to eq(root_path)
+    end
   end
 
   describe 'delete', type: :feature, js: true do
