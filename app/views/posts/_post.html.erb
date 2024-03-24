@@ -18,8 +18,11 @@
       <td><%= post.user.full_name %></td>
       <td><%= link_to truncate(post.rationale), post %></td>
       <td><%= status_label post.status %></td>
-      <td><%= link_to "Edit", edit_post_path(post) if policy(post).update? %></td>
-      <td><%= button_to "Delete", post_path(post), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
+      <td><%= link_to "", edit_post_path(post),  class:"bi bi-pencil-square" if policy(post).update? %></td>
+      <td><%= button_to post_path(post), method: :delete, class: "bi bi-trash3-fill", data: { turbo_confirm: "Are you sure?" } do %>
+        <span class="visually-hidden">Delete</span>
+      <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
