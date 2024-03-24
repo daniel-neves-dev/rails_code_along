@@ -1,0 +1,29 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Date</th>
+    <th scope="col">User</th>
+    <th scope="col">Rationale</th>
+    <th scope="col">Status</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= post.id %></td>
+      <td><%= post.date %></td>
+      <td><%= post.user.full_name %></td>
+      <td><%= link_to truncate(post.rationale), post %></td>
+      <td><%= status_label post.status %></td>
+      <td><%= link_to "", edit_post_path(post),  class:"bi bi-pencil-square" if policy(post).update? %></td>
+      <td><%= button_to post_path(post), method: :delete, class: "bi bi-trash3-fill", data: { turbo_confirm: "Are you sure?" } do %>
+        <span class="visually-hidden">Delete</span>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
