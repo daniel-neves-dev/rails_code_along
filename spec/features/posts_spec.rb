@@ -27,35 +27,36 @@ describe 'Posts navigate', true do
       expect(page).to have_content(/Rationale|content/)
 
     end
+  end
 
-    describe 'Post creation' do
-      before do
-        visit new_post_path
-      end
+  describe 'Post creation' do
+    before do
+      visit new_post_path
+    end
 
-      it 'loads the new post form' do
-        expect(page.status_code).to eq(200)
-      end
+    it 'loads the new post form' do
+      expect(page.status_code).to eq(200)
+    end
 
-      it 'creates a post from the new form', type: :feature, js: true do
-        fill_in 'post[date]', with: Date.today
-        fill_in 'post[rationale]', with: "Some rationale"
+    it 'creates a post from the new form', type: :feature, js: true do
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "Some rationale"
 
-        click_on "Save"
+      click_on "Save"
 
-        expect(page).to have_content("Some rationale")
-      end
+      expect(page).to have_content("Some rationale")
+    end
 
-      it 'associates the post with the logged-in user' do
-        fill_in 'post[date]', with: Date.today
-        fill_in 'post[rationale]', with: "User Association"
+    it 'associates the post with the logged-in user' do
+      fill_in 'post[date]', with: Date.today
+      fill_in 'post[rationale]', with: "User Association"
 
-        click_on "Save"
+      click_on "Save"
 
-        expect(User.last.posts.last.rationale).to eq("User Association")
-      end
+      expect(User.last.posts.last.rationale).to eq("User Association")
     end
   end
+
 
   describe 'new' do
     it 'has a link from the homepage' do
@@ -70,7 +71,6 @@ describe 'Posts navigate', true do
     before do
       @post = FactoryBot.create(:post, user: @user)
     end
-
 
     it 'can be reached by clicking edit on the index page' do
       visit posts_path
@@ -102,17 +102,16 @@ describe 'Posts navigate', true do
   end
 
   describe 'delete', type: :feature, js: true do
-    it 'destroys the post and shows confirmation' do
-      @post = FactoryBot.create(:post)
+    let!(:post) { FactoryBot.create(:post, user: @user) }
+
+    it 'delete the post and shows confirmation' do
       visit posts_path
-
       page.accept_confirm do
-        click_button('Delete')
+        click_on('Delete', match: :first)
       end
-
       expect(page).to have_content('Post was successfully deleted.')
+      expect(Post.exists?(post.id)).to be_falsey
     end
   end
-
 end
 

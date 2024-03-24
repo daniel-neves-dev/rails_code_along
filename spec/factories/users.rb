@@ -26,4 +26,12 @@ FactoryBot.define do
     password {"123456"}
     password_confirmation {"123456"}
   end
+
+  factory :other_user, class: "User" do
+    first_name {'Other'}
+    last_name {'User'}
+    email { generate :email }
+    password {"123456"}
+    password_confirmation {"123456"}
+  end
 end
