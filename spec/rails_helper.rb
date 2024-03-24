@@ -28,3 +28,9 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :feature
 end
 
+Capybara.register_driver :selenium_chrome_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless no-sandbox window-size=1920,1080])
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+

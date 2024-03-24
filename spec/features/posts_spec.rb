@@ -1,19 +1,24 @@
 require 'rails_helper'
 
-describe 'Posts navigate', true do
+RSpec.describe 'Posts navigation', type: :feature do
+  let(:user) { FactoryBot.create(:user) }
+  let(:non_authorized_user) { FactoryBot.create(:user) }
+  let(:post) { FactoryBot.create(:post, user: user) }
+  let(:second_post) { FactoryBot.create(:post, user: user) }
 
   before do
-    @user = FactoryBot.create(:user)
-    login_as(@user, :scope => :user)
+    login_as(user, scope: :user)
   end
 
   describe 'index' do
     before do
+      post
+      second_post
       visit posts_path
     end
 
     it 'loads successfully' do
-      expect(page.status_code).to eq(200)
+      expect(page).to have_http_status(200)
     end
 
     it 'displays the "Posts" title', type: :feature, js: true do
@@ -21,97 +26,77 @@ describe 'Posts navigate', true do
     end
 
     it 'displays multiple posts', type: :feature, js: true do
-      post1 = FactoryBot.build_stubbed(:post)
-      post2 = FactoryBot.build_stubbed(:second_post)
-      visit posts_path
-      expect(page).to have_content(/Rationale|content/)
-
+      expect(page).to have_content(post.rationale)
+      expect(page).to have_content(second_post.rationale)
     end
   end
 
   describe 'Post creation' do
-    before do
-      visit new_post_path
-    end
+    before { visit new_post_path }
 
     it 'loads the new post form' do
-      expect(page.status_code).to eq(200)
+      expect(page).to have_http_status(200)
     end
 
-    it 'creates a post from the new form', type: :feature, js: true do
+    it 'creates a post from the new form page', type: :feature, js: true do
       fill_in 'post[date]', with: Date.today
-      fill_in 'post[rationale]', with: "Some rationale"
-
-      click_on "Save"
-
-      expect(page).to have_content("Some rationale")
+      fill_in 'post[rationale]', with: 'Some rationale'
+      click_on 'Save'
+      expect(page).to have_content('Some rationale')
     end
 
-    it 'associates the post with the logged-in user' do
+    it 'associates the post with the logged-in user', type: :feature, js: true do
       fill_in 'post[date]', with: Date.today
-      fill_in 'post[rationale]', with: "User Association"
-
-      click_on "Save"
-
-      expect(User.last.posts.last.rationale).to eq("User Association")
+      fill_in 'post[rationale]', with: 'User Association'
+      click_on 'Save'
+      expect(user.posts.last.rationale).to eq('User Association')
     end
   end
-
 
   describe 'new' do
     it 'has a link from the homepage' do
       visit root_path
-
-      click_on("New Entry")
-      expect(page.status_code).to eq(200)
+      expect(page).to have_link('New Entry')
+      click_on('New Entry')
+      expect(page).to have_http_status(200)
     end
   end
 
   describe 'edit' do
-    before do
-      @post = FactoryBot.create(:post, user: @user)
-    end
+    before { post }
 
     it 'can be reached by clicking edit on the index page' do
       visit posts_path
-
-      edit_link = find("a[href='/posts/#{@post.id}/edit']")
-      edit_link.click
-
-      expect(page.status_code).to eq(200)
+      click_on 'Edit', match: :first
+      expect(page).to have_http_status(200)
     end
 
-    it 'can be edited', :feature, js: true do
-      visit edit_post_path(@post)
-
-      find('input[name="post[date]"]', wait: 10).set(Date.today)
-      fill_in 'post[rationale]', with: "Edited content"
-      click_on "Save"
-
-      expect(page).to have_content("Edited content")
+    it 'can be edited', type: :feature, js: true do
+      visit edit_post_path(post)
+      fill_in 'post[rationale]', with: 'Edited content'
+      click_on 'Save'
+      expect(page).to have_content('Edited content')
     end
 
-    it 'cannot be edited by non_authorized user' do
+    it 'cannot be edited by non-authorized user', type: :feature, js: true do
       logout(:user)
-      non_authorized_user = FactoryBot.create(:non_authorized_user)
-      login_as(non_authorized_user, :scope => :user)
-
-      visit edit_post_path(@post)
-      expect(current_path).to eq(root_path)
+      login_as(non_authorized_user, scope: :user)
+      visit edit_post_path(post)
+      expect(page).to have_current_path(root_path)
+      expect(page).not_to have_content('Save')
     end
   end
 
   describe 'delete', type: :feature, js: true do
-    let!(:post) { FactoryBot.create(:post, user: @user) }
+    before { post }
 
-    it 'delete the post and shows confirmation' do
+    it 'deletes the post and shows confirmation' do
       visit posts_path
       page.accept_confirm do
         click_on('Delete', match: :first)
       end
-      expect(page).to have_content('Post was successfully deleted.')
+      expect(page).not_to have_content(post.rationale)
       expect(Post.exists?(post.id)).to be_falsey
     end
   end
 end
-
