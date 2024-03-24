@@ -5,6 +5,7 @@ RSpec.describe 'Posts navigation', type: :feature do
   let(:non_authorized_user) { FactoryBot.create(:user) }
   let(:post) { FactoryBot.create(:post, user: user) }
   let(:second_post) { FactoryBot.create(:post, user: user) }
+  let!(:other_user) { FactoryBot.create(:user) }
 
   before do
     login_as(user, scope: :user)
@@ -14,6 +15,7 @@ RSpec.describe 'Posts navigation', type: :feature do
     before do
       post
       second_post
+      other_user
       visit posts_path
     end
 
@@ -28,6 +30,16 @@ RSpec.describe 'Posts navigation', type: :feature do
     it 'displays multiple posts', type: :feature, js: true do
       expect(page).to have_content(post.rationale)
       expect(page).to have_content(second_post.rationale)
+    end
+
+    it 'shows only the posts from the logged-in user', type: :feature, js: true do
+      user.posts.each do |post|
+        expect(page).to have_content(post.rationale)
+      end
+
+      other_user.posts.each do |post|
+        expect(page).to_not have_content(post.rationale)
+      end
     end
   end
 
