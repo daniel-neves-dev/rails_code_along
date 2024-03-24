@@ -16,9 +16,9 @@
       <td><%= post.id %></td>
       <td><%= post.date %></td>
       <td><%= post.user.full_name %></td>
-      <td><%= truncate(post.rationale) %></td>
+      <td><%= link_to truncate(post.rationale), post %></td>
       <td><%= status_label post.status %></td>
-      <td><%= link_to "Edit", edit_post_path(post) %></td>
+      <td><%= link_to "Edit", edit_post_path(post) if policy(post).update? %></td>
       <td><%= button_to "Delete", post_path(post), method: :delete, data: { turbo_confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>

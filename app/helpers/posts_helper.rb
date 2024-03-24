@@ -8,11 +8,11 @@ module PostsHelper
   def status_generator(status)
     case status
     when 'submitted'
-      content_tag(:span, status.titleize, class: 'd-inline p-2 text-bg-primary')
+      content_tag(:span, status.titleize, class: 'badge text-bg-primary')
     when 'approved'
-      content_tag(:span, status.titleize, class: 'd-inline p-2 text-bg-success')
+      content_tag(:span, status.titleize, class: 'badge text-bg-success')
     when 'rejected'
-      content_tag(:span, status.titleize, class: 'd-inline p-2 text-bg-danger')
+      content_tag(:span, status.titleize, class: 'badge text-bg-danger')
     end
   end
 end
