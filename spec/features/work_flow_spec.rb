@@ -32,5 +32,18 @@ describe 'navigate workflow', type: :feature, js: true do
       expect(current_path).to eq(root_path)
       expect(page).to have_content('You are not authorized')
     end
+
+    it 'does not allow regular users to edit an approved post', type: :feature, js: true do
+      logout(:user)
+      user = FactoryBot.create(:user)
+      login_as(user, :scope => :user)
+
+      @post.update(user_id: user.id, status: 'approved')
+      visit edit_post_path(@post)
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('You are not authorized')
+    end
+
   end
 end
