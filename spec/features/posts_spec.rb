@@ -79,7 +79,7 @@ RSpec.describe 'Posts navigation', type: :feature do
 
     it 'can be reached by clicking edit on the index page' do
       visit posts_path
-      click_on 'Edit', match: :first
+      find('.bi-pencil-square', match: :first).click
       expect(page).to have_http_status(200)
     end
 
