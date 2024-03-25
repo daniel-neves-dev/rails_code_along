@@ -46,3 +46,5 @@ gem 'administrate', '~> 0.20.1'
 gem 'bourbon', '~> 7.3'
 gem "bootstrap"
 gem "pundit", "~> 2.3"
+gem 'twilio-ruby', '~> 4.11', '>= 4.11.1'
+gem 'dotenv-rails', :group => [:development, :test]
